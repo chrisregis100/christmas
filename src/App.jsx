@@ -100,10 +100,10 @@ const App = () => {
           showMessage ? "opacity-100 scale-100" : "opacity-0 scale-0"
         }`}
       >
-        <h1 className="christmas-title font-bold text-red-500 mb-4 sm:mb-8 animate-float shadow-text">
+        <h1 className="christmas-title font-bold text-red-500 lg:text-[150px] md:text-[100px] text-5xl mb-4 sm:mb-8 animate-float shadow-text">
           Merry Christmas !
         </h1>
-        <p className="christmas-subtitle text-xl sm:text-2xl md:text-3xl text-white animate-pulse shadow-text-sm">
+        <p className="christmas-subtitle text-xl sm:text-2xl md:text-3xl lg:text-[50px] text-white animate-pulse shadow-text-sm">
           Que la magie de Noël illumine cette belle journée
         </p>
       </div>
