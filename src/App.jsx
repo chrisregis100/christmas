@@ -4,21 +4,31 @@ const App = () => {
   const [flocons, setFlocons] = useState([]);
   const [showMessage, setShowMessage] = useState(false);
   const [etincelle, setEtincelle] = useState([]);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // création des flocons de neige
   useEffect(() => {
-    const flocons = Array.from({ length: 50 }, (_, i) => ({
+    // Fonction pour détecter si on est sur mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+
+    // Nombre d'éléments adapté selon la taille d'écran
+    const floconCount = isMobile ? 25 : 50;
+    const etincelleCount = isMobile ? 15 : 30;
+
+    const flocons = Array.from({ length: floconCount }, (_, i) => ({
       id: i,
       left: `${Math.random() * 100}%`,
       animationDuration: `${Math.random() * 3 + 2}s`,
       delay: `${Math.random() * 2}s`,
       opacity: Math.random(),
-      size: Math.random() * 10 + 5,
+      size: Math.random() * (isMobile ? 8 : 10) + 5,
     }));
     setFlocons(flocons);
 
-    // gestion de l'apparition des étincelles
-    const sparkles = Array.from({ length: 30 }, (_, i) => ({
+    const sparkles = Array.from({ length: etincelleCount }, (_, i) => ({
       id: i,
       left: `${Math.random() * 100}%`,
       top: `${Math.random() * 100}%`,
@@ -29,18 +39,20 @@ const App = () => {
     setEtincelle(sparkles);
 
     setTimeout(() => setShowMessage(true), 500);
-  }, []);
+
+    // Gestionnaire de redimensionnement
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, [isMobile]);
 
   return (
-    <div className="relative h-screen w-full overflow-hidden bg-gradient-to-br from-red-900 via-green-900 to-red-900">
-      {/* Fond animé */}
+    <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-red-900 via-green-900 to-red-900">
       <div className="absolute inset-0 bg-[radial-gradient(circle,_transparent_20%,_#000_70%)] opacity-40" />
 
-      {/* Étincelles */}
       {etincelle.map((etincelle) => (
         <div
           key={etincelle.id}
-          className={`absolute text-lg ${etincelle.color} animate-etincelle`}
+          className={`absolute text-lg ${etincelle.color} animate-etincelle hidden sm:block`}
           style={{
             left: etincelle.left,
             top: etincelle.top,
@@ -52,7 +64,6 @@ const App = () => {
         </div>
       ))}
 
-      {/* Flocons de neige */}
       {flocons.map((flocon) => (
         <div
           key={flocon.id}
@@ -69,42 +80,45 @@ const App = () => {
         </div>
       ))}
 
-      {/* Sapin de Noël */}
-      <div className="absolute left-1/2 bottom-32 transform -translate-x-1/2">
-        <div className="w-0 h-0 border-l-[60px] border-r-[60px] border-b-[100px] border-transparent border-b-green-400 relative animate-pulse" />
-        <div className="w-0 h-0 border-l-[75px] border-r-[75px] border-b-[120px] border-transparent border-b-green-500 relative -mt-20 animate-pulse" />
-        <div className="w-0 h-0 border-l-[90px] border-r-[90px] border-b-[140px] border-transparent border-b-green-600 relative -mt-28 animate-pulse" />
-        <div className="w-10 h-24 bg-yellow-900 mx-auto -mt-4" />
+      {/* Sapin responsive */}
+      <div className="absolute left-1/2 bottom-16 sm:bottom-10 transform -translate-x-1/2">
+        <div className="w-0 h-0 border-l-[30px] sm:border-l-[60px] border-r-[30px] sm:border-r-[60px] border-b-[50px] sm:border-b-[100px] border-transparent border-b-green-400 relative animate-pulse" />
+        <div className="w-0 h-0 border-l-[40px] sm:border-l-[75px] border-r-[40px] sm:border-r-[75px] border-b-[60px] sm:border-b-[120px] border-transparent border-b-green-500 relative -mt-10 sm:-mt-20 animate-pulse" />
+        <div className="w-0 h-0 border-l-[50px] sm:border-l-[90px] border-r-[50px] sm:border-r-[90px] border-b-[70px] sm:border-b-[140px] border-transparent border-b-green-600 relative -mt-14 sm:-mt-28 animate-pulse" />
+        <div className="w-6 sm:w-10 h-16 sm:h-24 bg-yellow-900 mx-auto -mt-2 sm:-mt-4" />
 
-        {/* Décorations du sapin */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-yellow-400 text-2xl animate-ping">⭐</div>
+          <div className="text-yellow-400 text-xl sm:text-2xl animate-ping">
+            ⭐
+          </div>
         </div>
       </div>
 
+      {/* Message responsive */}
       <div
-        className={`absolute top-1/3 w-full left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center transition-all duration-1000 ${
+        className={`absolute top-1/4 sm:top-1/3 w-full left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center transition-all duration-1000 px-4 ${
           showMessage ? "opacity-100 scale-100" : "opacity-0 scale-0"
         }`}
       >
-        <h1 className="christmas-title text-[150px]  font-bold text-red-500 mb-8 animate-float shadow-text">
+        <h1 className="christmas-title font-bold text-red-500 mb-4 sm:mb-8 animate-float shadow-text">
           Merry Christmas !
         </h1>
-        <p className="christmas-subtitle  text-3xl text-white animate-pulse shadow-text-sm">
+        <p className="christmas-subtitle text-xl sm:text-2xl md:text-3xl text-white animate-pulse shadow-text-sm">
           Que la magie de Noël illumine cette belle journée
         </p>
       </div>
 
-      <div className="absolute top-10 left-10 text-5xl animate-float-slow">
+      {/* Décorations responsives */}
+      <div className="absolute top-4 sm:top-10 left-4 sm:left-10 text-3xl sm:text-5xl animate-float-slow">
         🎄
       </div>
-      <div className="absolute top-10 right-10 text-5xl animate-spin-slow">
+      <div className="absolute top-4 sm:top-10 right-4 sm:right-10 text-3xl sm:text-5xl animate-spin-slow">
         ⭐
       </div>
-      <div className="absolute bottom-10 left-10 text-5xl animate-bounce-slow">
+      <div className="absolute bottom-4 sm:bottom-10 left-4 sm:left-10 text-3xl sm:text-5xl animate-bounce-slow">
         🎁
       </div>
-      <div className="absolute bottom-10 right-10 text-5xl animate-slide">
+      <div className="absolute bottom-4 sm:bottom-10 right-4 sm:right-10 text-3xl sm:text-5xl animate-slide">
         🎅
       </div>
     </div>

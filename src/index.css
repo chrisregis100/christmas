@@ -13,6 +13,17 @@
   .christmas-text {
     font-family: 'Great Vibes', cursive;
   }
+
+  @media (max-width: 768px) {
+    .christmas-title {
+      font-size: 3rem !important;
+    }
+  }
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .christmas-title {
+      font-size: 5rem !important;
+    }
+  }
 @keyframes fall {
   0% {
     transform: translateY(-10px) rotate(0deg);
