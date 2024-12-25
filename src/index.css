@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.christmas-title {
+    font-family: 'Mountains of Christmas', cursive;
+  }
+  
+  .christmas-subtitle {
+    font-family: 'Berkshire Swash', cursive;
+  }
+  
+  .christmas-text {
+    font-family: 'Great Vibes', cursive;
+  }
+@keyframes fall {
+  0% {
+    transform: translateY(-10px) rotate(0deg);
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(-100px);
+  }
+  100% {
+    transform: translateX(100px);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-bounce-slow {
+  animation: bounce 2s infinite;
+}
+
+.animate-slide {
+  animation: slide 4s linear infinite alternate;
+}
+
+.animate-twinkle {
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+.shadow-text {
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5),
+    -3px -3px 6px rgba(255, 255, 255, 0.2);
+}
+
+.shadow-text-sm {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
