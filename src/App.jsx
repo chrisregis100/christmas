@@ -96,7 +96,7 @@ const App = () => {
 
       {/* Message responsive */}
       <div
-        className={`absolute top-1/4 sm:top-1/3 w-full left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center transition-all duration-1000 px-4 ${
+        className={`absolute top-1/4 sm:top-1/3 w-full left-1/2 transform flex flex-col gap-2 -translate-x-1/2 -translate-y-1/2 text-center transition-all duration-1000 px-4 ${
           showMessage ? "opacity-100 scale-100" : "opacity-0 scale-0"
         }`}
       >
@@ -106,6 +106,13 @@ const App = () => {
         <p className="christmas-subtitle text-xl sm:text-2xl md:text-3xl lg:text-[50px] text-white animate-pulse shadow-text-sm">
           Que la magie de Noël illumine cette belle journée
         </p>
+        <a
+          href="https://github.com/chrisregis100/christmas"
+          target="blank"
+          className="christmas-text text-xl text-white my-4 animate-pulse shadow-text-sm"
+        >
+          cliquez le lien pour accéder le repo github
+        </a>
       </div>
 
       {/* Décorations responsives */}
